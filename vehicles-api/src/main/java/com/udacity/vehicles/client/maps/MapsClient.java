@@ -35,12 +35,7 @@ public class MapsClient {
         try {
             Address address = client
                     .get()
-                    .uri(uriBuilder -> uriBuilder
-                            .path("/maps/")
-                            .queryParam("lat", location.getLat())
-                            .queryParam("lon", location.getLon())
-                            .build()
-                    )
+                    .uri("/maps?lat={lat}&lon={lon}", location.getLat(), location.getLon())
                     .retrieve().bodyToMono(Address.class).block();
 
             mapper.map(Objects.requireNonNull(address), location);
